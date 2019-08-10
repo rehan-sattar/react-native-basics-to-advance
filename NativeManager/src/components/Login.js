@@ -34,11 +34,11 @@ class Login extends Component {
 
   renderLoading = () => {
     const { loading } = this.props;
-    return loading ? <Spinner /> : null;
+    return loading ? <Spinner /> : <Text>Login</Text>;
   };
 
   render() {
-    const { email, password } = this.props;
+    const { email, password, loading } = this.props;
     return (
       <Card>
         <CardSection>
@@ -59,9 +59,8 @@ class Login extends Component {
           />
         </CardSection>
         {this.renderError()}
-        {this.renderLoading()}
         <CardSection>
-          <Button onPress={this.handleUserSignIn}>Login</Button>
+          {loading ? <Spinner /> : <Button onPress={this.handleUserSignIn}>Login</Button>}
         </CardSection>
       </Card>
     );
