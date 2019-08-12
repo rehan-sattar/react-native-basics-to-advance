@@ -75,12 +75,12 @@ const styles = {
   }
 };
 
-const mapStateToProps = ({ auth }) => console.log('NEW STATE::: ', auth) || {
+const mapStateToProps = ({ auth }) => ({
   email: auth.email,
   password: auth.password,
   error: auth.error,
   loading: auth.loading
-};
+});
 
 export default connect(
   mapStateToProps,

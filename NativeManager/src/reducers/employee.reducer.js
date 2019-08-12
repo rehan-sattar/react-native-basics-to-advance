@@ -1,9 +1,10 @@
-import { EMPLOYEE_UPDATE } from '../actions';
+import { EMPLOYEE_UPDATE, EMPLOYEE_ADDED, FETCH_EMPLOYEESS_SUCCESS } from '../actions';
 
 const INITIAL_STATE = {
   name: '',
   phone: '',
-  shift: ''
+  shift: '',
+  allEmployees: []
 };
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -11,6 +12,18 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         [action.payload.prop]: action.payload.value
+      };
+    case EMPLOYEE_ADDED:
+      return {
+        ...state,
+        name: '',
+        phone: '',
+        shift: ''
+      };
+    case FETCH_EMPLOYEESS_SUCCESS:
+      return {
+        ...state,
+        allEmployees: action.payload
       };
     default:
       return state;

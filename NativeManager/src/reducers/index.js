@@ -4,5 +4,5 @@ import createEmployeeReducer from './employee.reducer';
 
 export default combineReducers({
   auth: authReducer,
-  createEmployee: createEmployeeReducer
+  employees: createEmployeeReducer
 });
