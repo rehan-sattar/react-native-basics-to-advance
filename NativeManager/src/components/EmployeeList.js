@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Text, View, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
+import ListItem from './ListItem';
+import { Spinner } from './common';
 
 class EmployeeList extends Component {
   state = {
@@ -24,18 +26,16 @@ class EmployeeList extends Component {
 
   renderEmployeeList = () => {
     const { allEmployees } = this.state;
+    const { fetchingAllEmployees } = this.props;
     const listJSX = (
       <FlatList
         data={allEmployees}
-        renderItem={({ item }) => (
-          <View>
-            <Text>{item.name}</Text>
-          </View>
-        )}
+        renderItem={({ item }) => <ListItem name={item.name} />}
         keyExtractor={item => item.uid}
       />
     );
-    return allEmployees.length === 0 ? <Text>No Employees.. </Text> : listJSX;
+    const renderList = allEmployees.length === 0 ? <Text>No employees</Text> : listJSX;
+    return fetchingAllEmployees ? <Spinner style={{ marginTop: 150 }} /> : renderList;
   };
 
   render() {
@@ -43,8 +43,9 @@ class EmployeeList extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  employees: state.employees.allEmployees
+const mapStateToProps = ({ employees }) => ({
+  employees: employees.employees,
+  fetchingAllEmployees: employees.fetchingAllEmployees
 });
 
 export default connect(

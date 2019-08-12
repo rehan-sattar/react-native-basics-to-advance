@@ -1,6 +1,11 @@
 import firebase from 'firebase';
 import { Actions } from 'react-native-router-flux';
-import { EMPLOYEE_UPDATE, EMPLOYEE_ADDED, FETCH_EMPLOYEESS_SUCCESS } from './types';
+import {
+  EMPLOYEE_UPDATE,
+  EMPLOYEE_ADDED,
+  FETCH_EMPLOYEESS_SUCCESS,
+  FETCH_EMPLOYEESS_STARTED
+} from './types';
 
 export const updateEmployee = ({ prop, value }) => ({
   type: EMPLOYEE_UPDATE,
@@ -28,6 +33,7 @@ export const fetchAllEmployees = () => (dispatch) => {
   const {
     currentUser: { uid }
   } = firebase.auth();
+  dispatch({ type: FETCH_EMPLOYEESS_STARTED });
   firebase
     .database()
     .ref(`/users/${uid}/employees`)

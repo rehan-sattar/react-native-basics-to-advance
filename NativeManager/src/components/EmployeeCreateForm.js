@@ -62,8 +62,8 @@ class EmployeeCreateForm extends React.Component {
   }
 }
 
-const mapStateToProps = ({ employees }) => {
-  const { name, phone, shift } = employees;
+const mapStateToProps = ({ createEmployee }) => {
+  const { name, phone, shift } = createEmployee;
   return {
     name,
     phone,

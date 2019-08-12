@@ -1,10 +1,16 @@
-import { EMPLOYEE_UPDATE, EMPLOYEE_ADDED, FETCH_EMPLOYEESS_SUCCESS } from '../actions';
+import {
+  EMPLOYEE_UPDATE,
+  EMPLOYEE_ADDED,
+  FETCH_EMPLOYEESS_STARTED,
+  FETCH_EMPLOYEESS_SUCCESS
+} from '../actions';
 
 const INITIAL_STATE = {
   name: '',
   phone: '',
   shift: '',
-  allEmployees: []
+  allEmployees: [],
+  fetchingEmployees: false
 };
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -20,9 +26,15 @@ export default (state = INITIAL_STATE, action) => {
         phone: '',
         shift: ''
       };
+    case FETCH_EMPLOYEESS_STARTED:
+      return {
+        ...state,
+        fetchingEmployees: true
+      };
     case FETCH_EMPLOYEESS_SUCCESS:
       return {
         ...state,
+        fetchingEmployees: false,
         allEmployees: action.payload
       };
     default:
