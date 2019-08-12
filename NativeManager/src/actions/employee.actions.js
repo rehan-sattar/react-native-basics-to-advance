@@ -68,6 +68,15 @@ export const employeeSave = ({
     });
 };
 
+export const deleteEmployee = uid => () => {
+  const { currentUser } = firebase.auth();
+  firebase
+    .database()
+    .ref(`/users/${currentUser.uid}/employees/${uid}`)
+    .remove()
+    .then(() => Actions.pop());
+};
+
 const successAction = (dispatch, type, payload = null) => dispatch({
   type,
   payload

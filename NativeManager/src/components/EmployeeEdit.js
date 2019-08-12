@@ -5,8 +5,13 @@ import Communications from 'react-native-communications';
 import { Card, CardSection, Button } from './common';
 import EmployeeForm from './EmployeeForm';
 import * as actions from '../actions';
+import { Confirm } from './common/Confirm';
 
 class EmployeeEdit extends Component {
+  state = {
+    visibility: false
+  };
+
   componentDidMount() {
     const { employee, updateEmployee } = this.props;
     _.each(employee, (value, prop) => {
@@ -35,7 +40,24 @@ class EmployeeEdit extends Component {
     Communications.text(phone, `Your shift is on ${shift}`);
   };
 
+  onFirePress = () => {
+    this.setState({
+      visibility: !this.state.visibility
+    });
+  };
+
+  onAccept = () => {
+    const {
+      deleteEmployee,
+      employee: { uid }
+    } = this.props;
+    deleteEmployee(uid);
+  };
+
+  onDecline = () => this.setState({ visibility: false });
+
   render() {
+    const { visibility } = this.state;
     return (
       <Card>
         <EmployeeForm {...this.props} />
@@ -46,6 +68,14 @@ class EmployeeEdit extends Component {
         <CardSection>
           <Button onPress={this.onTextPress}>Send Text</Button>
         </CardSection>
+
+        <CardSection>
+          <Button onPress={this.onFirePress}>Fire Employee</Button>
+        </CardSection>
+
+        <Confirm visibility={visibility} onAccept={this.onAccept} onDecline={this.onDecline}>
+          Are you sure you want to delete this?
+        </Confirm>
       </Card>
     );
   }
