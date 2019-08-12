@@ -4,7 +4,8 @@ import {
   EMPLOYEE_UPDATE,
   EMPLOYEE_ADDED,
   FETCH_EMPLOYEESS_SUCCESS,
-  FETCH_EMPLOYEESS_STARTED
+  FETCH_EMPLOYEESS_STARTED,
+  EMPLOYEE_SAVE_SUCCESS
 } from './types';
 
 export const updateEmployee = ({ prop, value }) => ({
@@ -42,9 +43,28 @@ export const fetchAllEmployees = () => (dispatch) => {
       const employees = [];
       // eslint-disable-next-line no-restricted-syntax
       for (const [key, value] of Object.entries(data)) {
-        employees.push({ uid: key, ...value }); // key represent the uid and value is the whole object
+        // key represent the uid and value is the whole object
+        employees.push({ uid: key, ...value });
       }
       successAction(dispatch, FETCH_EMPLOYEESS_SUCCESS, employees);
+    });
+};
+
+export const employeeSave = ({
+  name, phone, shift, uid
+}) => (dispatch) => {
+  const { currentUser } = firebase.auth();
+  firebase
+    .database()
+    .ref(`/users/${currentUser.uid}/employees/${uid}`)
+    .set({
+      name,
+      phone,
+      shift
+    })
+    .then(() => {
+      successAction(dispatch, EMPLOYEE_SAVE_SUCCESS);
+      Actions.pop();
     });
 };
 

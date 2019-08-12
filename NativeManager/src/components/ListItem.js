@@ -1,13 +1,21 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { Text, View, TouchableWithoutFeedback } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import { CardSection } from './common';
 
-const ListItem = ({ name }) => {
+const ListItem = ({ employee }) => {
   const { empNameStyles } = styles;
+  const onRowPress = () => {
+    Actions.employeeEdit({ employee });
+  };
   return (
-    <CardSection>
-      <Text style={empNameStyles}>{name}</Text>
-    </CardSection>
+    <TouchableWithoutFeedback onPress={onRowPress}>
+      <View>
+        <CardSection>
+          <Text style={empNameStyles}>{employee.name}</Text>
+        </CardSection>
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 

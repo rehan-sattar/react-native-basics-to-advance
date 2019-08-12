@@ -5,6 +5,6 @@ import readAllEmployeesReducer from './employees.reducer';
 
 export default combineReducers({
   auth: authReducer,
-  createEmployee: createEmployeeReducer,
+  employeeForm: createEmployeeReducer,
   employees: readAllEmployeesReducer
 });

@@ -6,35 +6,21 @@ import ListItem from './ListItem';
 import { Spinner } from './common';
 
 class EmployeeList extends Component {
-  state = {
-    allEmployees: []
-  };
-
   componentDidMount() {
     const { fetchAllEmployees } = this.props;
     fetchAllEmployees();
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    const { employees } = this.props;
-    if (prevProps.employees.length !== employees.length) {
-      this.setState({
-        allEmployees: employees
-      });
-    }
-  }
-
   renderEmployeeList = () => {
-    const { allEmployees } = this.state;
-    const { fetchingAllEmployees } = this.props;
+    const { fetchingAllEmployees, employees } = this.props;
     const listJSX = (
       <FlatList
-        data={allEmployees}
-        renderItem={({ item }) => <ListItem name={item.name} />}
+        data={employees}
+        renderItem={({ item }) => <ListItem employee={item} />}
         keyExtractor={item => item.uid}
       />
     );
-    const renderList = allEmployees.length === 0 ? <Text>No employees</Text> : listJSX;
+    const renderList = employees.length === 0 ? <Text>No employees</Text> : listJSX;
     return fetchingAllEmployees ? <Spinner style={{ marginTop: 150 }} /> : renderList;
   };
 
@@ -44,7 +30,7 @@ class EmployeeList extends Component {
 }
 
 const mapStateToProps = ({ employees }) => ({
-  employees: employees.employees,
+  employees: employees.allEmployees,
   fetchingAllEmployees: employees.fetchingAllEmployees
 });
 

@@ -1,7 +1,7 @@
 import { FETCH_EMPLOYEESS_STARTED, FETCH_EMPLOYEESS_SUCCESS } from '../actions/types';
 
 const INITIAL_STATE = {
-  employees: [],
+  allEmployees: [],
   fetchingAllEmployees: false
 };
 
@@ -16,7 +16,7 @@ export default (state = INITIAL_STATE, { type, payload }) => {
       return {
         ...state,
         fetchingAllEmployees: false,
-        employees: payload
+        allEmployees: payload
       };
     default:
       return state;
