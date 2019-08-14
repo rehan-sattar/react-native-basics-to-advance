@@ -5,18 +5,19 @@ import ListScreen from './src/screens/ListScreen';
 import ImageScreen from './src/screens/ImageScreen';
 import CounterScreen from './src/screens/CounterScreen';
 import ColorScreen from './src/screens/ColorScreen';
-import ColroMakerScreen from './src/screens/ColorMakerScreen';
 import ColorMakerScreen from './src/screens/ColorMakerScreen';
+import TextScreen from './src/screens/TextScreen';
 
 const navigator = createStackNavigator(
   {
     Home: HomeScreen,
     Components: ComponentsScreen,
-    Lists: ListScreen,
-    Images: ImageScreen,
+    List: ListScreen,
+    Image: ImageScreen,
     Counter: CounterScreen,
-    Colors: ColorScreen,
-    ColorMaker: ColorMakerScreen
+    Color: ColorScreen,
+    ColorMaker: ColorMakerScreen,
+    Text: TextScreen
   },
   {
     initialRouteName: 'Home',

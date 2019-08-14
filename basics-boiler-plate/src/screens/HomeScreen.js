@@ -6,11 +6,12 @@ const HomeScreen = ({ navigation }) => {
     <View>
       {[
         { routeLink: 'Components', title: 'Go to Components demo' },
-        { routeLink: 'Lists', title: 'Go to List demo' },
-        { routeLink: 'Images', title: 'Go to Images demo' },
+        { routeLink: 'List', title: 'Go to List demo' },
+        { routeLink: 'Image', title: 'Go to Images demo' },
         { routeLink: 'Counter', title: 'Go to Counter demo' },
-        { routeLink: 'Colors', title: 'Go to Colors demo' },
-        { routeLink: 'ColorMaker', title: 'Go to Color maker demo' }
+        { routeLink: 'Color', title: 'Go to Colors demo' },
+        { routeLink: 'ColorMaker', title: 'Go to Color maker demo' },
+        { routeLink: 'Text', title: 'Go to Text Screen  demo' }
       ].map(({ routeLink, title }, index) => (
         <View style={styles.buttonWrapper} key={index}>
           <Button
