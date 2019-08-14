@@ -9,7 +9,8 @@ const HomeScreen = ({ navigation }) => {
         { routeLink: 'Lists', title: 'Go to List demo' },
         { routeLink: 'Images', title: 'Go to Images demo' },
         { routeLink: 'Counter', title: 'Go to Counter demo' },
-        { routeLink: 'Colors', title: 'Go to Colors demo' }
+        { routeLink: 'Colors', title: 'Go to Colors demo' },
+        { routeLink: 'ColorMaker', title: 'Go to Color maker demo' }
       ].map(({ routeLink, title }, index) => (
         <View style={styles.buttonWrapper} key={index}>
           <Button
