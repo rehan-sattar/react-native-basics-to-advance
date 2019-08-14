@@ -1,47 +1,87 @@
-import React, { useState } from 'react';
+import React, { useReducer } from 'react';
 import { View, Text } from 'react-native';
 import ColorAdjuster from '../components/ColorAdjuster';
 
 const COLOR_INCREMENT = 15;
 
+/**
+ * @colorReducer
+ * @desc : reducer function for handling colors state
+ * @args : (state -> Type: ANY, action -> type: OBJECT of shape { type: value: Any, paylaod: Any}, ...rest)
+ * @return : any valid value.
+ */
+const colorReducer = (state, action) => {
+  switch (action.type) {
+    case 'change_red':
+      return state.red + action.payload > 255 || state.red + action.payload < 0
+        ? state
+        : {
+            ...state,
+            red: state.red + action.payload
+          };
+    case 'change_green':
+      return state.green + action.payload > 255 ||
+        state.green + action.payload < 0
+        ? state
+        : {
+            ...state,
+            green: state.green + action.payload
+          };
+    case 'change_blue':
+      return state.blue + action.payload > 255 ||
+        state.blue + action.payload < 0
+        ? state
+        : {
+            ...state,
+            blue: state.blue + action.payload
+          };
+    default:
+      return state;
+  }
+};
+
 const ColorMakerScreen = () => {
-  const [red, setRed] = useState(0);
-  const [green, setGreen] = useState(0);
-  const [blue, setBlue] = useState(0);
-  const setColor = (color, change) => {
-    switch (color) {
-      case 'red':
-        return red + change > 255 || red + change < 0
-          ? null
-          : setRed(red + change);
-      case 'green':
-        return green + change > 255 || green + change < 0
-          ? null
-          : setGreen(green + change);
-      case 'blue':
-        return blue + change > 255 || blue + change < 0
-          ? null
-          : setBlue(blue + change);
-      default:
-        return;
-    }
-  };
+  /**
+   * @useReducer
+   * @desc   : hook for  working with reducer functions.
+   * @args   : (reducer -> type: FUNCTION, INITIAL_STATE -> type: ANY, ...rest)
+   * @return : it will always return any valid value, value -> type: ANY
+   */
+  const [state, dispatch] = useReducer(colorReducer, {
+    red: 0,
+    green: 0,
+    blue: 0
+  });
+  const { red, green, blue } = state;
+
   return (
     <View>
       <Text>Color Maker screen</Text>
       <ColorAdjuster
-        onIncrease={() => setColor('red', COLOR_INCREMENT)}
-        onDecrease={() => setColor('red', -1 * COLOR_INCREMENT)}
+        onIncrease={() =>
+          dispatch({ type: 'change_red', payload: COLOR_INCREMENT })
+        }
+        onDecrease={() =>
+          dispatch({ type: 'change_red', payload: -1 * COLOR_INCREMENT })
+        }
         color="red"
       />
       <ColorAdjuster
-        onIncrease={() => setColor('green', COLOR_INCREMENT)}
-        onDecrease={() => setColor('green', -1 * COLOR_INCREMENT)}
+        onIncrease={() =>
+          dispatch({ type: 'change_green', payload: COLOR_INCREMENT })
+        }
+        onDecrease={() =>
+          dispatch({ type: 'change_green', payload: -1 * COLOR_INCREMENT })
+        }
         color="green"
       />
       <ColorAdjuster
-        onIncrease={() => setColor('blue', COLOR_INCREMENT)}
-        onDecrease={() => setColor('blue', -1 * COLOR_INCREMENT)}
+        onIncrease={() =>
+          dispatch({ type: 'change_blue', payload: COLOR_INCREMENT })
+        }
+        onDecrease={() =>
+          dispatch({ type: 'change_blue', payload: -1 * COLOR_INCREMENT })
+        }
         color="blue"
       />
       <View
