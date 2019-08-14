@@ -4,26 +4,28 @@ import { View, Button, StyleSheet } from 'react-native';
 const HomeScreen = ({ navigation }) => {
   return (
     <View>
-      <Button
-        onPress={() => navigation.navigate('Components')}
-        title="Go to components demo"
-      />
-      <Button
-        onPress={() => navigation.navigate('Lists')}
-        title="Go to List Demo"
-      />
-      <Button
-        onPress={() => navigation.navigate('Images')}
-        title="Go to Image List Demo"
-      />
-      <Button
-        onPress={() => navigation.navigate('Counter')}
-        title="Go to Counter Demo"
-      />
+      {[
+        { routeLink: 'Components', title: 'Go to Components demo' },
+        { routeLink: 'Lists', title: 'Go to List demo' },
+        { routeLink: 'Images', title: 'Go to Images demo' },
+        { routeLink: 'Counter', title: 'Go to Counter demo' },
+        { routeLink: 'Colors', title: 'Go to Colors demo' }
+      ].map(({ routeLink, title }, index) => (
+        <View style={styles.buttonWrapper} key={index}>
+          <Button
+            onPress={() => navigation.navigate(routeLink)}
+            title={title}
+          />
+        </View>
+      ))}
     </View>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  buttonWrapper: {
+    margin: 10
+  }
+});
 
 export default HomeScreen;
