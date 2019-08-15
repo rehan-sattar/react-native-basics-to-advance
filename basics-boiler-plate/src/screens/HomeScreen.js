@@ -11,7 +11,8 @@ const HomeScreen = ({ navigation }) => {
         { routeLink: 'Counter', title: 'Go to Counter demo' },
         { routeLink: 'Color', title: 'Go to Colors demo' },
         { routeLink: 'ColorMaker', title: 'Go to Color maker demo' },
-        { routeLink: 'Text', title: 'Go to Text Screen  demo' }
+        { routeLink: 'Text', title: 'Go to Text Screen demo' },
+        { routeLink: 'Box', title: 'Go to Box demo' }
       ].map(({ routeLink, title }, index) => (
         <View style={styles.buttonWrapper} key={index}>
           <Button
@@ -26,7 +27,7 @@ const HomeScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   buttonWrapper: {
-    margin: 10
+    margin: 5
   }
 });
 
