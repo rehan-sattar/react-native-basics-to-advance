@@ -1,12 +1,12 @@
-import React from 'react';
-import { Text, View, StyleSheet, Dimensions } from 'react-native';
-import * as baseStyles from '../styles/base';
+import React from "react";
+import { Text, View, StyleSheet, Dimensions } from "react-native";
+import * as baseStyles from "../styles/base";
 
 const BoxScreen = () => {
   const { viewStyles, textBoxStyles } = styles;
   const size = {
-    fullHeight: Dimensions.get('window').height,
-    fullWidth: Dimensions.get('window').width
+    fullHeight: Dimensions.get("window").height,
+    fullWidth: Dimensions.get("window").width
   };
   return (
     <View style={viewStyles}>
@@ -40,12 +40,12 @@ const BoxScreen = () => {
 const styles = StyleSheet.create({
   viewStyles: {
     borderWidth: 2,
-    borderColor: 'red',
+    borderColor: "red",
     padding: baseStyles.sizes.lg
   },
   textBoxStyles: {
     borderWidth: 3,
-    borderColor: 'black',
+    borderColor: "black",
     padding: baseStyles.sizes.lg,
     fontSize: baseStyles.sizes.xl
   }
