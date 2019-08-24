@@ -13,7 +13,11 @@ const blogReducer = (state, action) => {
           content: action.payload.content
         }
       ]
-    case 'delete_post':
+    case 'edit_blog':
+      return state.map(blog =>
+        blog.id === action.payload.id ? action.payload : blog
+      )
+    case 'delete_blog':
       return state.filter(item => item.id !== action.payload)
     default:
       return state
@@ -22,15 +26,23 @@ const blogReducer = (state, action) => {
 
 const addBlog = dispatch => (title, content, callback) => {
   dispatch({ type: 'add_blog', payload: { title, content } })
-  callback()
+  if (callback) {
+    callback()
+  }
 }
 
 const deletePost = dispatch => id =>
-  dispatch({ type: 'delete_post', payload: id })
+  dispatch({ type: 'delete_blog', payload: id })
 
+const editBlog = dispatch => (id, title, content, callback) => {
+  dispatch({ type: 'edit_blog', payload: { id, title, content } })
+  if (callback) {
+    callback()
+  }
+}
 export const { Context, Provider } = createDataContext(
   blogReducer,
-  { addBlog, deletePost },
+  { addBlog, deletePost, editBlog },
   // []
   // for devlopment environment, use some default initial state
   [{ id: 1, title: 'Testing post', content: 'Welcome to the testing post' }]
