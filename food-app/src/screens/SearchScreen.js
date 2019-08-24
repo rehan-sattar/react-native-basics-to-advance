@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import React, { useState } from 'react';
+import { Text, ScrollView } from 'react-native';
 import SearchBar from '../components/SearchBar';
 import useYelpSearch from '../hooks/useYelpSearch';
 import RestaurantsList from '../components/RestaurantsList';
@@ -7,9 +7,10 @@ import RestaurantsList from '../components/RestaurantsList';
 const SearchScreen = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchApi, searchResults, errorMessage] = useYelpSearch();
-  const filterByPrices = price => {
-    return searchResults.filter(restaurant => restaurant.price === price);
-  };
+
+  const filterByPrices = price =>
+    searchResults.filter(restaurant => restaurant.price === price);
+
   return (
     <>
       <SearchBar

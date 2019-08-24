@@ -16,7 +16,7 @@ export default () => {
       });
       setSearchResults(res.data.businesses);
     } catch (err) {
-      setErrorMessage('Something wend wrong.');
+      setErrorMessage('Something went wrong.');
     }
   };
 

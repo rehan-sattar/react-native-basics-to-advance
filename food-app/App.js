@@ -1,27 +1,20 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import SearchScreen from './src/screens/SearchScreen';
+import RestaurantDetailsScreen from './src/screens/RestaurantDetailsScreen';
 
 const navigator = createStackNavigator(
   {
-    Search: SearchScreen
+    Search: SearchScreen,
+    RestaurantDetails: RestaurantDetailsScreen
   },
   {
     initialRouteName: 'Search',
     defaultNavigationOptions: {
-      title: 'Search Screen'
-    }
+      title: 'Restaurant Search App'
+    },
+    headerLayoutPreset: 'center'
   }
 );
 
 export default createAppContainer(navigator);
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
-});
