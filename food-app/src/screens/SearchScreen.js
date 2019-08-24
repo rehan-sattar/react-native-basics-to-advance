@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text } from 'react-native';
 import SearchBar from '../components/SearchBar';
 import yelp from '../api/yelp';
@@ -8,12 +8,12 @@ const SearchScreen = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
 
-  searchApi = async () => {
+  searchApi = async term => {
     try {
       const res = await yelp.get('/search', {
         params: {
           limit: 50,
-          term: searchTerm,
+          term,
           location: 'New York City'
         }
       });
@@ -22,6 +22,11 @@ const SearchScreen = () => {
       setErrorMessage('Something wend wrong.');
     }
   };
+
+  // sidenote : This is similar to componentDidMount()
+  useEffect(() => {
+    searchApi('pasta');
+  }, []);
 
   return (
     <View>
