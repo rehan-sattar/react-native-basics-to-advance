@@ -35,10 +35,13 @@ const addBlog = dispatch => async (title, content, callback) => {
   }
 }
 
-const deletePost = dispatch => id =>
+const deletePost = dispatch => async id => {
+  await jsonServer.delete(`/blogPosts/${id}`)
   dispatch({ type: 'delete_blog', payload: id })
+}
 
-const editBlog = dispatch => (id, title, content, callback) => {
+const editBlog = dispatch => async (id, title, content, callback) => {
+  await jsonServer.put(`/blogPosts/${id}`, { title, content })
   dispatch({ type: 'edit_blog', payload: { id, title, content } })
   if (callback) {
     callback()
