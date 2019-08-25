@@ -1,18 +1,12 @@
 import React from 'react'
 import createDataContext from './createDataContext'
+import jsonServer from '../api/jsonServer'
 
 // reducer for blogs
 const blogReducer = (state, action) => {
   switch (action.type) {
-    case 'add_blog':
-      return [
-        ...state,
-        {
-          id: Math.floor(Math.random() * 999),
-          title: action.payload.title,
-          content: action.payload.content
-        }
-      ]
+    case 'get_posts':
+      return action.payload
     case 'edit_blog':
       return state.map(blog =>
         blog.id === action.payload.id ? action.payload : blog
@@ -24,8 +18,18 @@ const blogReducer = (state, action) => {
   }
 }
 
-const addBlog = dispatch => (title, content, callback) => {
-  dispatch({ type: 'add_blog', payload: { title, content } })
+const getBlogPosts = dispatch => async () => {
+  try {
+    const response = await jsonServer.get('/blogPosts')
+    dispatch({ type: 'get_posts', payload: response.data })
+  } catch (e) {}
+}
+
+const addBlog = dispatch => async (title, content, callback) => {
+  const response = await jsonServer.post('/blogPosts', {
+    title,
+    content
+  })
   if (callback) {
     callback()
   }
@@ -42,8 +46,6 @@ const editBlog = dispatch => (id, title, content, callback) => {
 }
 export const { Context, Provider } = createDataContext(
   blogReducer,
-  { addBlog, deletePost, editBlog },
-  // []
-  // for devlopment environment, use some default initial state
-  [{ id: 1, title: 'Testing post', content: 'Welcome to the testing post' }]
+  { addBlog, deletePost, editBlog, getBlogPosts },
+  []
 )

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import {
   View,
   Text,
@@ -11,7 +11,19 @@ import { FontAwesome } from '@expo/vector-icons'
 import { Context as BlogContext } from '../context/BlogContext'
 
 const HomeScreen = ({ navigation }) => {
-  const { state, deletePost } = useContext(BlogContext)
+  const { state, deletePost, getBlogPosts } = useContext(BlogContext)
+
+  useEffect(() => {
+    getBlogPosts()
+    const listner = navigation.addListener('didFocus', () => {
+      getBlogPosts()
+    })
+
+    return () => {
+      listner.remove()
+    }
+  }, [])
+
   return (
     <View>
       <FlatList
