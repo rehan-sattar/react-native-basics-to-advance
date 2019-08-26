@@ -4,5 +4,4 @@ const router = express.Router()
 
 // signup route
 router.post('/signup', AuthController.signup)
-
 module.exports = router

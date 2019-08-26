@@ -4,7 +4,6 @@ const User = mongoose.model('User')
 
 module.exports = (req, res, next) => {
   const { authorization } = req.headers
-  console.log('Authorization : ', authorization)
   if (!authorization) {
     res.status(422).send({ error: 'You must logged in!!' })
     return
@@ -17,7 +16,6 @@ module.exports = (req, res, next) => {
     }
     const user = await User.findOne({ _id: info.userId })
     req.user = user
-    console.log(user)
     next()
   })
 }
