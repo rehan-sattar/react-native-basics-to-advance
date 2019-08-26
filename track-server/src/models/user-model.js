@@ -40,4 +40,4 @@ schema.methods.comparePassword = function(candidatePassword) {
   })
 }
 
-module.exports = mongoose.model("User", schema)
+mongoose.model("User", schema)
