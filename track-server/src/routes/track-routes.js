@@ -8,7 +8,7 @@ router.use(requireAuth)
 //  get all tracks route
 router.get("/tracks", TracksController.getAllTracks)
 
-//  signin route
-// router.post("/signin", TracksController.signin)
+//  create track route
+router.post("/tracks", TracksController.createTrack)
 
 module.exports = router

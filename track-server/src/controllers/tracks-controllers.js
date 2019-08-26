@@ -13,6 +13,22 @@ const getAllTracks = async (req, res) => {
   res.send(lists)
 }
 
+const createTrack = async (req, res) => {
+  const { name, locations } = req.body
+  if (!name || !locations)
+    return res
+      .status(422)
+      .send({ error: "You must provide name and some locations" })
+  try {
+    const track = new Track({ name, locations, userId: req.user._id })
+    await track.save()
+    res.status(200).send(track)
+  } catch (err) {
+    res.status(422).send({ error: "Something went wrong!", err })
+  }
+}
+
 module.exports = {
-  getAllTracks
+  getAllTracks,
+  createTrack
 }
