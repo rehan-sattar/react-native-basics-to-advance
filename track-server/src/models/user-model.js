@@ -14,7 +14,7 @@ const schema = new mongoose.Schema({
 })
 
 // hashing and salting for password.
-schema.pre("save", function (next) {
+schema.pre("save", function(next) {
   const user = this
   if (!user.isModified("password")) return next()
   bcrypt.genSalt(10, (err, salt) => {
@@ -29,7 +29,7 @@ schema.pre("save", function (next) {
 
 // password checking
 
-schema.methods.comparePassword = function (candidatePassword) {
+schema.methods.comparePassword = function(candidatePassword) {
   return new Promise((resolve, reject) => {
     const user = this
     bcrypt.compare(candidatePassword, user.password, (err, isMatch) => {
