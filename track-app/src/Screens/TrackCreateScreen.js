@@ -1,12 +1,12 @@
-import React from "react"
-import {View, Text} from "react-native"
+import React from "react";
+import { View, Text } from "react-native";
 
 const TrackCreateScreen = () => {
-    return (
-        <View>
-            <Text>TrackCreateScreen</Text>
-        </View>
-    )
-}
+  return (
+    <View>
+      <Text>TrackCreateScreen</Text>
+    </View>
+  );
+};
 
-export default TrackCreateScreen
+export default TrackCreateScreen;
