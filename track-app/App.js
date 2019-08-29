@@ -5,6 +5,7 @@ import {
   createSwitchNavigator,
   createStackNavigator
 } from "react-navigation";
+import { setNavigator } from "./src/navigationRef";
 import SigninScreen from "./src/Screens/SigninScreen";
 import SignupScreen from "./src/Screens/SignupScreen";
 import AccountScreen from "./src/Screens/AccountScreen";
@@ -32,6 +33,10 @@ const App = createAppContainer(switchNavigator);
 
 export default () => (
   <AuthProvider>
-    <App />
+    <App
+      ref={navigation => {
+        setNavigator(navigation);
+      }}
+    />
   </AuthProvider>
 );
