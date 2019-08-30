@@ -9,6 +9,8 @@ const authReducer = (state, { type, payload }) => {
       return { ...state, errorMessage: payload };
     case "success_auth":
       return { errorMessage: "", token: payload };
+    case "success_signout":
+      return { errorMessage: "", token: null };
     case "clear_error":
       return { ...state, errorMessage: "" };
     default:
@@ -20,8 +22,10 @@ const authReducer = (state, { type, payload }) => {
 // for clearting the errorMessage
 const clearErrorMessage = dispatch => () => dispatch({ type: "clear_error" });
 
-const signout = dispatch => {
-  return () => {};
+const signout = dispatch => async () => {
+  await AsyncStorage.removeItem("token");
+  dispatch({ type: "success_signout" });
+  navigate("Signin");
 };
 
 const authenticate = dispatch => {
