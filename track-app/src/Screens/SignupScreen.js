@@ -1,41 +1,38 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { View, StyleSheet } from "react-native";
-import { Text, Button, Input } from "react-native-elements";
 import { Context as AuthContext } from "../context/AuthContext";
-import Spacer from "../components/Spacer";
+import { NavigationEvents } from "react-navigation";
+import AuthForm from "../components/AuthForm";
+import NavLink from "../components/NavLink";
 
-const SignupScreen = ({ navigation }) => {
-  const { state, signup } = useContext(AuthContext);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const SignupScreen = () => {
+  const { state, authenticate, clearErrorMessage } = useContext(AuthContext);
   const { errorMessage } = state;
+
+  /**
+   * @component <NavigationEvents />
+   * @description triggers events while screen changes.
+   * @events
+   * - onWillFocus  : When starts the transition
+   * - onDidFoduc  : When successfully ends transition.
+   * - onWillBlur : When the back transition starts (moving away).
+   * - onDidblue : When the back transition is completed.
+   */
+
   return (
     <View style={styles.container}>
-      <Spacer center>
-        <Text h3>Sign up for Tracker</Text>
-      </Spacer>
-      <Input
-        label="Email"
-        value={email}
-        onChangeText={setEmail}
-        autoCapitalize="none"
-        autoCorrect={false}
+      <NavigationEvents onWillBlur={clearErrorMessage} />
+      <AuthForm
+        onSubmit={authenticate}
+        apiRoute="/signup"
+        errorMessage={errorMessage}
+        headerText="Sign up for Tracker"
+        submitButtonText="Signup"
       />
-      <Spacer />
-      <Input
-        label="Password"
-        secureTextEntry
-        value={password}
-        onChangeText={setPassword}
-        autoCapitalize="none"
-        autoCorrect={false}
+      <NavLink
+        routeName="Signin"
+        text="Already have an account? Signin instead "
       />
-      {errorMessage ? (
-        <Text style={styles.errorMessage}>{errorMessage}</Text>
-      ) : null}
-      <Spacer>
-        <Button title="Sign up" onPress={() => signup({ email, password })} />
-      </Spacer>
     </View>
   );
 };
@@ -49,12 +46,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     marginBottom: 200
-  },
-  errorMessage: {
-    marginLeft: 15,
-    marginTop: 15,
-    color: "red",
-    fontSize: 16
   }
 });
 
