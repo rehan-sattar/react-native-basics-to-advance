@@ -1,11 +1,14 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { Text } from "react-native-elements";
+import { SafeAreaView } from "react-navigation";
+import Map from "../components/Map";
 
 const TrackCreateScreen = () => {
   return (
-    <View>
-      <Text>TrackCreateScreen</Text>
-    </View>
+    <SafeAreaView forceInset={{ top: "always" }}>
+      <Text h3>Create Track</Text>
+      <Map />
+    </SafeAreaView>
   );
 };
 
