@@ -27,6 +27,11 @@ const TrackForm = () => {
           <Button title="Start Track" onPress={startRecording} />
         )}
       </Spacer>
+      <Spacer>
+        {!recording && locations.length ? (
+          <Button title="Save Track" onPress={() => {}} />
+        ) : null}
+      </Spacer>
     </>
   );
 };
