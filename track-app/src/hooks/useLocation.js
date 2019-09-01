@@ -7,33 +7,38 @@ import {
 
 export default (isFocused, callback) => {
   const [err, setErr] = useState(null);
-  const [subscriber, setSubscriber] = useState(null);
-  const startWatching = async () => {
-    try {
-      await requestPermissionsAsync();
-      const sub = await watchPositionAsync(
-        {
-          accuracy: Accuracy.BestForNavigation,
-          timeInterval: 2000,
-          distanceInterval: 10
-        },
-        callback
-      );
-      setSubscriber(sub);
-    } catch (err) {
-      console.log(err);
-      setErr(err);
-    }
-  };
-
+  /**
+   * If useState is referencing some props and state variables, they should be added to
+   * the second argument array. [recomended]
+   * - This rule is not for functions.
+   */
   useEffect(() => {
+    let subscriber;
+    const startWatching = async () => {
+      try {
+        await requestPermissionsAsync();
+        subscriber = await watchPositionAsync(
+          {
+            accuracy: Accuracy.BestForNavigation,
+            timeInterval: 2000,
+            distanceInterval: 10
+          },
+          callback
+        );
+      } catch (err) {
+        setErr(err);
+      }
+    };
     if (isFocused) {
       startWatching();
     } else {
-      subscriber.remove();
-      setSubscriber(null);
+      if (subscriber) subscriber.remove();
+      subscriber = null;
     }
-  }, [isFocused]);
+    return () => {
+      if (subscriber) subscriber.remove();
+    };
+  }, [isFocused, callback]);
 
   return [err];
 };
